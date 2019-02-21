@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Company>Robert McCabe</Company>
+    <IsPackable>true</IsPackable>
+    <PackageId>Cloud.Core.Authentication.AzureAuth</PackageId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageTags>Cloud.Core .net-Core Core Cloud.Core.Authentication AzureAuth</PackageTags>
+    <PackageReleaseNotes />
+    <Description>Azure specific implementation of the IAuthentication interface.  Used to inject authentication into supported packages.</Description>
+    <Copyright>Robert McCabe</Copyright>
+    <Version>1.0</Version>
+    <Authors>Robert McCabe</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cloud.Core" Version="1.0.2408.1" />
+    <PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.18.0" />
+    <PackageReference Include="Microsoft.Azure.Management.ResourceManager.Fluent" Version="1.18.0" />
+    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.2.0-preview" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.19.8" />
+  </ItemGroup>
+
+</Project>
