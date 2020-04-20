@@ -45,5 +45,23 @@
             });
             Assert.Throws<AdalServiceException>(() => auth.AccessToken);
         }
+
+        [Theory, IsUnit]
+        [InlineData("", "", "", "", "")]
+        [InlineData(null, null, null, null, null)]
+        [InlineData("test", "", "", "", "")]
+        [InlineData("test", "test", "", "", "")]
+        [InlineData("test", "test", "test", "", "")]
+        public void Test_Authenticates_UserAuth_EmptyCredentials(string username, string password, string nativeAppId, string resourceAppId, string tenantId)
+        {
+            Assert.Throws<ArgumentException>(() => new AzureTokenAuthentication(new UserAuth
+            {
+                Username = username,
+                Password = password,
+                NativeAppId = nativeAppId,
+                ResourceAppId = resourceAppId,
+                TenantId = tenantId
+            }).AccessToken);
+        }
     }
 }

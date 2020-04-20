@@ -1,5 +1,6 @@
 ﻿namespace Cloud.Core.Authentication.AzureAuth
 {
+    using Newtonsoft.Json;
     using System;
 
     /// <summary>
@@ -13,6 +14,7 @@
         /// Bearer token for authentication.
         /// </summary>
         /// <value>The bearer token.</value>
+        [JsonProperty("access_token")]
         public string BearerToken { get; set; }
 
         /// <summary>

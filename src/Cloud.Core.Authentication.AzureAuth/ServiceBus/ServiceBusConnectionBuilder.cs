@@ -53,13 +53,17 @@
 
             // If the namespace is not found, throw an exception.
             if (sbNamespace == null)
+            {
                 throw new InvalidOperationException($"Could not find the a service bus instance  {_config.InstanceName} in the subscription with ID {_config.SubscriptionId}");
+            }
 
             string connString;
-            
+
             // Connection string built up in different ways depending on the shared access policy level. Uses "global" (top service level) when isServiceLevelSAP [true].
             if (_config.IsServiceLevelSharedAccessPolicy)
+            {
                 connString = sbNamespace.AuthorizationRules.GetByName(_config.SharedAccessPolicyName).GetKeys().PrimaryConnectionString;
+            }
             else
             {
                 // Topic or queue level connection string.

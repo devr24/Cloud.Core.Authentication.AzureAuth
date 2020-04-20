@@ -56,15 +56,26 @@
         public void Validate()
         {
             if (string.IsNullOrEmpty(InstanceName))
+            {
                 throw new ArgumentException("InstanceName must be set for Service Bus connection");
+            }
+
             if (string.IsNullOrEmpty(SubscriptionId))
+            {
                 throw new ArgumentException("SubscriptionId must be set for Service Bus connection");
+            }
+
             if (string.IsNullOrEmpty(SharedAccessPolicyName))
+            {
                 throw new ArgumentException("SharedAccessPolicyName must be set for Service Bus connection");
-            if (IsServiceLevelSharedAccessPolicy == false &&  string.IsNullOrEmpty(EntityPath))
+            }
+
+            if (!IsServiceLevelSharedAccessPolicy && string.IsNullOrEmpty(EntityPath))
+            {
                 throw new ArgumentException("When you are NOT using a Service Level Shared Access Policy " +
                                             "[IsServiceLevelSharedAccessPolicy=false], then the EntityPath must " +
                                             "be set for Service Bus connection");
+            }
         }
     }
 }
