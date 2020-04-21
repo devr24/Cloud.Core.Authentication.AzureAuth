@@ -15,13 +15,13 @@ Azure specific implementation of `IAuthentication` interface.  Used for injectin
 
 A concrete instance of AzureAuthentication can be created as follows:
 
-```
+```csharp
 IAuthentication auth = new AzureAuthentication("<appId>", "<appSecret>", "<tenantId>");
 ```
 
 This can then be injected into services that expect the `IAuthentication` interface as a dependency, such as data lift web Api service which needs a bearer token sent with the header of it's requests: 
 
-```
+```csharp
 public class ApiServiceSample
 {
     private readonly IAuthentication _auth;
@@ -60,6 +60,7 @@ public class ApiServiceSample
     }
 }
 ```
+
 Technically, any implementation of IAuthentication could be injected into this service and it will still work fine! 
 
 ### Connection string generation
@@ -72,7 +73,7 @@ Connection strings can be built using Msi or Service Principle authentication.  
 
 Using Service Principle authentication:
 
-```
+```csharp
 var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
 
 var connectionBuilder = new ServiceBusConnectionBuilder(
@@ -95,7 +96,7 @@ var connString = await connectionBuilder.BuildConnectionString();
 
 Using Msi authentication:
 
-```
+```csharp
 var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
 
 var connectionBuilder = new ServiceBusConnectionBuilder(
@@ -119,7 +120,7 @@ var connString = await connectionBuilder.BuildConnectionString();
 
 Using Service Principle authentication:
 
-```
+```csharp
 var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
 
 var connectionBuilder = new StorageConnectionBuilder(
@@ -139,7 +140,7 @@ var connString = await connectionBuilder.BuildConnectionString();
  
 Using Msi authentication:
 
-```
+```csharp
 var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
 
 var connectionBuilder = new StorageConnectionBuilder(
