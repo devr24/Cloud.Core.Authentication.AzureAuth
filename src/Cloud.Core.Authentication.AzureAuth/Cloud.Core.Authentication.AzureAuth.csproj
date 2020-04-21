@@ -11,11 +11,11 @@
     <Description>Azure specific implementation of the IAuthentication interface.  Used to create authentication token and inject into supported Cloud.Core packages and applications.</Description>
     <Copyright>Aylesbury Solutions Ltd</Copyright>
     <Version>3.1</Version>
-	<PackageIconUrl>https://cloud1core.blob.core.windows.net/icons/CC.png</PackageIconUrl>
+    <PackageIconUrl>https://cloud1core.blob.core.windows.net/icons/CC.png</PackageIconUrl>
     <Authors>Robert McCabe</Authors>
     <ProjectGuid>{D135FD2D-2DE4-4A66-95C1-3EF1B8BA92B0}</ProjectGuid>
-	<RepositoryUrl>https://github.com/rmccabe24/Cloud.Core.Authentication.AzureAuth</RepositoryUrl>
-	<RepositoryType>Private</RepositoryType>
+    <RepositoryUrl>https://github.com/rmccabe24/Cloud.Core.Authentication.AzureAuth</RepositoryUrl>
+    <RepositoryType>Private</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
