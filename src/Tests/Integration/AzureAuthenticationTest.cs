@@ -10,9 +10,10 @@
     using Testing;
     using Xunit;
 
+    [IsIntegration]
     public class AzureAuthenticationTest
     {
-        [Fact, IsIntegration]
+        [Fact]
         public void Test_Authenticates_MSI_Credentials()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
@@ -23,7 +24,7 @@
             auth.AccessToken.Should().NotBe(null);
         }
 
-        [Fact, IsIntegration]
+        [Fact]
         public void Test_Authenticates_SP_MixedCredentials()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
@@ -41,7 +42,7 @@
             auth.AccessToken.Expires.Should().BeMoreThan(DateTime.Now.TimeOfDay);
         }
 
-        [Fact, IsIntegration]
+        [Fact]
         public void Test_Authenticates_UserCredentials()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
