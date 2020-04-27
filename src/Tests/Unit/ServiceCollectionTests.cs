@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Cloud.Core.Testing;
-using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
-
-namespace Cloud.Core.Authentication.AzureAuth.Tests.Unit
+﻿namespace Cloud.Core.Authentication.AzureAuth.Tests.Unit
 {
+    using System.Linq;
+    using Cloud.Core.Testing;
+    using FluentAssertions;
+    using Microsoft.Extensions.DependencyInjection;
+    using Xunit;
+
     [IsUnit]
     public class ServiceCollectionTests
     {

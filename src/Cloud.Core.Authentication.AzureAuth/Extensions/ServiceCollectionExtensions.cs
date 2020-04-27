@@ -8,7 +8,7 @@
     /// <summary>
     /// Class IServiceCollectionExtensions.
     /// </summary>
-    public static class IServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         /// <summary>
         /// Add an instance of Azure authentication as a singleton, using managed user config to setup.  Requires the TenantId to authenticate with and an optional app authority url.
@@ -29,7 +29,7 @@
         /// <param name="services">The services to extend.</param>
         /// <param name="appId">Application Id to use for authentication.</param>
         /// <param name="appSecret">Application secret for the AppId.</param>
-        /// <param name="tenantId">Tentant to authenticate with.</param>
+        /// <param name="tenantId">Tenant to authenticate with.</param>
         /// <param name="appRegistrationUrl">Optional parameter for an app registration url to authenticate against.</param>
         /// <returns>Service collection with the IAuthentication added.</returns>
         public static IServiceCollection AddAzureServicePrincipleAuthSingleton(this IServiceCollection services, string appId, string appSecret, string tenantId, string appRegistrationUrl = null)
@@ -45,7 +45,7 @@
         /// Add an instance of IAuthentication for user authentication.
         /// </summary>
         /// <param name="services">The services to extend.</param>
-        /// <param name="tenantId">Tentant to authenticate with.</param>
+        /// <param name="tenantId">Tenant to authenticate with.</param>
         /// <param name="username">Username for auth.</param>
         /// <param name="password">Password for auth.</param>
         /// <param name="nativeAppId">Native application Id.</param>
@@ -92,7 +92,7 @@
         /// Add an instance of IAuthentication for service principle authentication.
         /// </summary>
         /// <param name="services">The services to extend.</param>
-        /// <param name="config">The service prinicple authentication configuration to initialise with.</param>
+        /// <param name="config">The service principle authentication configuration to initialise with.</param>
         /// <param name="appRegistrationUrl">Optional parameter for an app registration url to authenticate against.</param>
         /// <returns>IServiceCollection.</returns>
         public static IServiceCollection AddAzureAuthSingleton(this IServiceCollection services, ServicePrincipleAuth config, string appRegistrationUrl = null)
@@ -121,7 +121,7 @@
         /// <param name="services">Service collection to extend.</param>
         private static void AddFactoryIfNotAdded(IServiceCollection services)
         {
-            if (!services.Any(x => x.ServiceType == typeof(NamedInstanceFactory<IAuthentication>)))
+            if (services.All(x => x.ServiceType != typeof(NamedInstanceFactory<IAuthentication>)))
             {
                 // Service Factory doesn't exist, so we add it to ensure it's always available.
                 services.AddSingleton<NamedInstanceFactory<IAuthentication>>();

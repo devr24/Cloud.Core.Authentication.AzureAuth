@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Company>Robert McCabe</Company>
+    <Company>Aylesbury Solutions Ltd</Company>
     <IsPackable>true</IsPackable>
     <PackageId>Cloud.Core.Authentication.AzureAuth</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageTags>Cloud.Core .net-Core Core Cloud.Core.Authentication AzureAuth</PackageTags>
+    <PackageTags>Cloud.Core .net-Core Core Cloud.Core.Authentication Azure</PackageTags>
     <PackageReleaseNotes />
     <Description>Azure specific implementation of the IAuthentication interface.  Used to create authentication token and inject into supported Cloud.Core packages and applications.</Description>
     <Copyright>Aylesbury Solutions Ltd</Copyright>
@@ -16,6 +16,7 @@
     <ProjectGuid>{D135FD2D-2DE4-4A66-95C1-3EF1B8BA92B0}</ProjectGuid>
     <RepositoryUrl>https://github.com/rmccabe24/Cloud.Core.Authentication.AzureAuth</RepositoryUrl>
     <RepositoryType>Private</RepositoryType>
+    <DocumentationFile>Cloud.Core.Authentication.AzureAuth.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,10 +26,6 @@
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.2.1" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.19.8" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

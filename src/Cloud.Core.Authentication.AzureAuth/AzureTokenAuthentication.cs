@@ -176,9 +176,8 @@
                 }
 
                 var tokenDecoder = new JwtSecurityTokenHandler();
-                var jwtSecurityToken = tokenDecoder.ReadToken(token) as JwtSecurityToken;
 
-                if (jwtSecurityToken == null)
+                if (!(tokenDecoder.ReadToken(token) is JwtSecurityToken jwtSecurityToken))
                 {
                     throw new InvalidOperationException("Could not authenticate using Managed Service Identity, ensure the application is running in a secure context");
                 }
@@ -236,36 +235,35 @@
         /// </exception>
         private async Task<JwtSecurityToken> GetUserAuthToken()
         {
-            using (var httpClient = new HttpClient())
+            using var httpClient = new HttpClient();
+
+            // user credentials authentication
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                // user credentials authentication
-                var content = new FormUrlEncodedContent(new Dictionary<string, string>
-                    {
-                        {"grant_type", "password"},
-                        {"client_id", _userAuth.NativeAppId },
-                        {"password", _userAuth.Password },
-                        {"username", _userAuth.Username },
-                        {"resource", _userAuth.ResourceAppId }
-                    });
+                {"grant_type", "password"},
+                {"client_id", _userAuth.NativeAppId },
+                {"password", _userAuth.Password },
+                {"username", _userAuth.Username },
+                {"resource", _userAuth.ResourceAppId }
+            });
 
-                var req = new HttpRequestMessage(HttpMethod.Post, $"https://login.microsoftonline.com/{_userAuth.TenantId}/oauth2/token") { Content = content };
+            var req = new HttpRequestMessage(HttpMethod.Post, $"https://login.microsoftonline.com/{_userAuth.TenantId}/oauth2/token") { Content = content };
 
-                var resp = await httpClient.SendAsync(req).ConfigureAwait(false);
+            var resp = await httpClient.SendAsync(req).ConfigureAwait(false);
 
-                var respBody = await resp.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var respBody = await resp.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                var token = JsonConvert.DeserializeObject<AzureToken>(respBody);
+            var token = JsonConvert.DeserializeObject<AzureToken>(respBody);
 
-                if (string.IsNullOrEmpty(token.BearerToken))
-                {
-                    throw new InvalidOperationException("Could not authenticate using provided user credentials, ensure the user credentials provided are correct");
-                }
-
-                var tokenDecoder = new JwtSecurityTokenHandler();
-                var jwtSecurityToken = tokenDecoder.ReadToken(token.BearerToken) as JwtSecurityToken;
-
-                return jwtSecurityToken;
+            if (string.IsNullOrEmpty(token.BearerToken))
+            {
+                throw new InvalidOperationException("Could not authenticate using provided user credentials, ensure the user credentials provided are correct");
             }
+
+            var tokenDecoder = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = tokenDecoder.ReadToken(token.BearerToken) as JwtSecurityToken;
+
+            return jwtSecurityToken;
         }
     }
 }
