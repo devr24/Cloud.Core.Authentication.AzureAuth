@@ -32,6 +32,7 @@
                 AppId = config.GetValue<string>("AppId")
             });
 
+            auth.Name.Should().NotBeNullOrEmpty();
             auth.AccessToken.Should().NotBe(null);
             auth.AccessToken.BearerToken.Should().NotBe(null);
             auth.AccessToken.BearerToken.Length.Should().BeGreaterThan(0);
