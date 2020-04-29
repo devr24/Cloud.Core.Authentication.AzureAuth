@@ -10,16 +10,16 @@
     [IsIntegration]
     public class AzureAuthenticationTest
     {
-        [Fact]
-        public void Test_Authenticates_MSI_Credentials()
-        {
-            var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
-            var auth = new AzureTokenAuthentication(new MsiAuth
-            {
-                TenantId = config.GetValue<string>("TenantId")
-            });
-            auth.AccessToken.Should().NotBe(null);
-        }
+        //[Fact]
+        //public void Test_Authenticates_MSI_Credentials()
+        //{
+        //    var config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
+        //    var auth = new AzureTokenAuthentication(new MsiAuth
+        //    {
+        //        TenantId = config.GetValue<string>("TenantId")
+        //    });
+        //    auth.AccessToken.Should().NotBe(null);
+        //}
 
         [Fact]
         public void Test_Authenticates_SP_MixedCredentials()
