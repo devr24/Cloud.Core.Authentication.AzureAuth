@@ -1,4 +1,6 @@
-﻿namespace Cloud.Core.Authentication.AzureAuth.Tests.Unit
+﻿using Cloud.Core.Exceptions;
+
+namespace Cloud.Core.Authentication.AzureAuth.Tests.Unit
 {
     using System;
     using Config;
@@ -13,7 +15,7 @@
         [InlineData(null)]
         public void Test_Authenticates_MSI_EmptyCredentials(string tenantId)
         {
-            Assert.Throws<ArgumentException>(() => new AzureTokenAuthentication(new MsiAuth
+            Assert.Throws<ValidateException>(() => new AzureTokenAuthentication(new MsiAuth
             {
                 TenantId = tenantId
             }).AccessToken);
@@ -26,7 +28,7 @@
         [InlineData("test", "test", "")]
         public void Test_Authenticates_SP_EmptyCredentials(string appId, string appSecret, string tenantId)
         {
-            Assert.Throws<ArgumentException>(() => new AzureTokenAuthentication(new ServicePrincipleAuth
+            Assert.Throws<ValidateException>(() => new AzureTokenAuthentication(new ServicePrincipleAuth
             {
                 AppSecret = appSecret,
                 AppId = appId,
@@ -54,7 +56,7 @@
         [InlineData("test", "test", "test", "", "")]
         public void Test_Authenticates_UserAuth_EmptyCredentials(string username, string password, string nativeAppId, string resourceAppId, string tenantId)
         {
-            Assert.Throws<ArgumentException>(() => new AzureTokenAuthentication(new UserAuth
+            Assert.Throws<ValidateException>(() => new AzureTokenAuthentication(new UserAuth
             {
                 Username = username,
                 Password = password,

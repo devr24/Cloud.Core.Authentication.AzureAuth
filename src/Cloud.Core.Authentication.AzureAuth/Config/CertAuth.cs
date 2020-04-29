@@ -29,12 +29,5 @@
         /// <value>The certificate to use in combination with the AppId to authenticate with Azure.</value>
         [Required]
         public X509Certificate2 Certificate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Target URI for the Authentication Request
-        /// </summary>
-        /// <value>The Target URI for the Authentication Request</value>
-        [Required]
-        public string TargetUri { get; set; }
     }
 }

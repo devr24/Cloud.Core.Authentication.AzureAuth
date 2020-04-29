@@ -91,7 +91,6 @@
             {
                 AppId = "appId",
                 TenantName = "tenantName",
-                TargetUri = "uri",
                 Certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2()
             });
             services.Count.Should().Be(2);

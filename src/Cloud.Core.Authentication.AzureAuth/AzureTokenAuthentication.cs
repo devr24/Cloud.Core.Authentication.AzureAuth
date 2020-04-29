@@ -1,4 +1,6 @@
-﻿namespace Cloud.Core.Authentication.AzureAuth
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Cloud.Core.Authentication.AzureAuth
 {
     using System;
     using System.Collections.Generic;
@@ -144,6 +146,7 @@
         /// or
         /// Could not authenticate using User Authentication
         /// </exception>
+        [ExcludeFromCodeCoverage]
         private async Task<AzureToken> GetBearerToken()
         {
             var authenticated = new AzureToken();
@@ -200,7 +203,7 @@
                 var authenticationAuthority = $"{WindowsLoginAuthority}{_certAuth.TenantName}";
                 var authContext = new AuthenticationContext(authenticationAuthority);
                 var clientAssertionCertificate = new ClientAssertionCertificate(_certAuth.AppId, _certAuth.Certificate);
-                var azureADAppOnlyAuthenticationToken = authContext.AcquireTokenAsync(_certAuth.TargetUri, clientAssertionCertificate).GetAwaiter().GetResult();
+                var azureADAppOnlyAuthenticationToken = authContext.AcquireTokenAsync(AzureManagementAuthority, clientAssertionCertificate).GetAwaiter().GetResult();
 
                 if (azureADAppOnlyAuthenticationToken == null)
                 {
@@ -235,6 +238,7 @@
         /// <exception cref="InvalidOperationException">
         /// Could not authenticate using Service Principle authentication
         /// </exception>
+        [ExcludeFromCodeCoverage]
         private async Task<JwtSecurityToken> GetUserAuthToken()
         {
             using var httpClient = new HttpClient();
