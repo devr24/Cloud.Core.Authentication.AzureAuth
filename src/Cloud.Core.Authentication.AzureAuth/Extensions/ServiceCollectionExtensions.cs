@@ -6,7 +6,7 @@
     using Cloud.Core.Authentication.AzureAuth.Config;
 
     /// <summary>
-    /// Class IServiceCollectionExtensions.
+    /// Class Service Collection extensions.
     /// </summary>
     public static class ServiceCollectionExtensions
     {

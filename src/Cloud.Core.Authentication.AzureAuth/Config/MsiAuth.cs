@@ -1,26 +1,18 @@
 ﻿namespace Cloud.Core.Authentication.AzureAuth.Config
 {
-    using System;
+    using System.ComponentModel.DataAnnotations;
+    using Validation;
 
     /// <summary>
     /// Msi authentication model.
     /// </summary>
-    public class MsiAuth
+    public class MsiAuth : AttributeValidator
     {
         /// <summary>
         /// Gets or sets the tenant identifier.
         /// </summary>
         /// <value>The tenant identifier.</value>
+        [Required]
         public string TenantId { get; set; }
-
-        /// <summary>
-        /// Validates this instance.
-        /// </summary>
-        /// <exception cref="ArgumentException">TenantId must be set for Msi authentication</exception>
-        public void Validate()
-        {
-            if (string.IsNullOrEmpty(TenantId))
-                throw new ArgumentException("TenantId must be set for Msi authentication");
-        }
     }
 }

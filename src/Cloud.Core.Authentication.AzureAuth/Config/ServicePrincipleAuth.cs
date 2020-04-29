@@ -1,48 +1,32 @@
 ﻿namespace Cloud.Core.Authentication.AzureAuth.Config
 {
-    using System;
+    using System.ComponentModel.DataAnnotations;
+    using Validation;
 
     /// <summary>
     /// Service Principle Authentication model.
     /// </summary>
-    public class ServicePrincipleAuth
+    public class ServicePrincipleAuth : AttributeValidator
     {
         /// <summary>
         /// Gets or sets the application identifier.
         /// </summary>
         /// <value>The application identifier.</value>
+        [Required]
         public string AppId { get; set; }
 
         /// <summary>
         /// Gets or sets the application secret.
         /// </summary>
         /// <value>The application secret.</value>
+        [Required]
         public string AppSecret { get; set; }
 
         /// <summary>
         /// Gets or sets the tenant identifier.
         /// </summary>
         /// <value>The tenant identifier.</value>
+        [Required]
         public string TenantId { get; set; }
-
-        /// <summary>
-        /// Validates this instance has all mandatory fields.
-        /// </summary>
-        /// <exception cref="ArgumentException">
-        /// AppId must be set for Service Principle authentication
-        /// or
-        /// AppSecret must be set for Service Principle authentication
-        /// or
-        /// TenantId must be set for Service Principle authentication
-        /// </exception>
-        public void Validate()
-        {
-            if (string.IsNullOrEmpty(AppId))
-                throw new ArgumentException("AppId must be set for Service Principle authentication");
-            if (string.IsNullOrEmpty(AppSecret))
-                throw new ArgumentException("AppSecret must be set for Service Principle authentication");
-            if (string.IsNullOrEmpty(TenantId))
-                throw new ArgumentException("TenantId must be set for Service Principle authentication");
-        }
     }
 }

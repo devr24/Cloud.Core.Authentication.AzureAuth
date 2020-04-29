@@ -46,7 +46,9 @@
             get
             {
                 if (_token == null || _token.HasExpired)
+                {
                     _token = GetBearerToken().GetAwaiter().GetResult();
+                }
 
                 return _token;
             }
@@ -59,6 +61,9 @@
         /// <param name="azureAppRegistrationAuthority">Optionally specify an Azure App Registration to authenticate against. Defaults to "https://management.azure.com/"</param>
         public AzureTokenAuthentication(ServicePrincipleAuth servicePrincipleAuth, string azureAppRegistrationAuthority = null)
         {
+            // Validate the certificate.
+            servicePrincipleAuth.ThrowIfInvalid();
+
             _spAuth = servicePrincipleAuth;
             _azureAppRegistrationAuthority = azureAppRegistrationAuthority;
             Name = servicePrincipleAuth.AppId;
@@ -71,6 +76,9 @@
         /// <param name="azureAppRegistrationAuthority">Optionally specify an Azure App Registration to authenticate against. Defaults to "https://management.azure.com/"</param>
         public AzureTokenAuthentication(MsiAuth msiAuth, string azureAppRegistrationAuthority = null)
         {
+            // Validate the certificate.
+            msiAuth.ThrowIfInvalid();
+
             _msiAuth = msiAuth;
             _azureAppRegistrationAuthority = azureAppRegistrationAuthority;
             Name = msiAuth.TenantId;
@@ -82,6 +90,9 @@
         /// <param name="userAuth">The user authentication.</param>
         public AzureTokenAuthentication(UserAuth userAuth)
         {
+            // Validate the certificate.
+            userAuth.ThrowIfInvalid();
+
             _userAuth = userAuth;
             Name = userAuth.Username;
         }
@@ -92,6 +103,9 @@
         /// <param name="certAuth">The certificate authentication</param>
         public AzureTokenAuthentication(CertAuth certAuth)
         {
+            // Validate the certificate.
+            certAuth.ThrowIfInvalid();
+
             _certAuth = certAuth;
             Name = certAuth.TenantName;
         }
@@ -142,9 +156,6 @@
 
             if (_spAuth != null)
             {
-                // Ensure setup correctly.
-                _spAuth.Validate();
-
                 // Service Principle Authentication.
                 var clientCredential = new ClientCredential(_spAuth.AppId, _spAuth.AppSecret);
                 var context = new AuthenticationContext($"{WindowsLoginAuthority}{_spAuth.TenantId}", false);
@@ -162,9 +173,6 @@
             }
             else if (_msiAuth != null)
             {
-                // Ensure setup correctly.
-                _msiAuth.Validate();
-
                 // Msi Authentication.
                 var provider = new AzureServiceTokenProvider();
                 var token = await provider.GetAccessTokenAsync(authority, _msiAuth.TenantId)
@@ -188,9 +196,6 @@
             }
             else if (_certAuth != null)
             {
-                //Ensure setup correctly.
-                _certAuth.Validate();
-
                 //Certificate Authentication
                 var authenticationAuthority = $"{WindowsLoginAuthority}{_certAuth.TenantName}";
                 var authContext = new AuthenticationContext(authenticationAuthority);
@@ -208,9 +213,6 @@
             }
             else
             {
-                // Ensure setup correctly.
-                _userAuth.Validate();
-
                 var jwtSecurityToken = await GetUserAuthToken().ConfigureAwait(false);
 
                 if (jwtSecurityToken == null)
